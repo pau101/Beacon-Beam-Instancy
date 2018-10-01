@@ -1,4 +1,4 @@
-package me.paulf.bbi.server.block;
+package me.paulf.rbeacons.server.block;
 
 import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.SoundType;

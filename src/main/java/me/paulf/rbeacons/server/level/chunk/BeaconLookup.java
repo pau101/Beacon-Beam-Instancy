@@ -1,4 +1,4 @@
-package me.paulf.bbi.server.level.chunk;
+package me.paulf.rbeacons.server.level.chunk;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntIterator;

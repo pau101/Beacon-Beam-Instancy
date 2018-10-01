@@ -1,6 +1,6 @@
-package me.paulf.bbi.server.block;
+package me.paulf.rbeacons.server.block;
 
-import me.paulf.bbi.server.block.entity.InstantBeaconEntity;
+import me.paulf.rbeacons.server.block.entity.InstantBeaconEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.state.IBlockState;

@@ -14,8 +14,8 @@ apply plugin: "net.minecraftforge.gradle.forge"
 
 project.ext.modVersion = "1.0.0"
 version = "${modVersion}-1.12.2"
-group = "me.paulf.bbi"
-archivesBaseName = "beaconbeaminstancy"
+group = "me.paulf.rbeacons"
+archivesBaseName = "responsivebeacons"
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {

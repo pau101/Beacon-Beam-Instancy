@@ -1,9 +1,7 @@
-package me.paulf.bbi.server.server.capabilities;
+package me.paulf.rbeacons.server.server.capabilities;
 
-import me.paulf.bbi.BeaconBeamInstancy;
-import me.paulf.bbi.server.ServerEventHandler;
-import me.paulf.bbi.server.block.entity.InstantBeaconEntity;
-import me.paulf.bbi.server.level.chunk.BeaconLookup;
+import me.paulf.rbeacons.ResponsiveBeacons;
+import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber(modid = BeaconBeamInstancy.ID)
+@Mod.EventBusSubscriber(modid = ResponsiveBeacons.ID)
 public final class BeaconLookups {
 	private BeaconLookups() {}
 
@@ -37,7 +35,7 @@ public final class BeaconLookups {
 
 	@SubscribeEvent
 	public static void onAttachCapabilities(AttachCapabilitiesEvent<Chunk> event) {
-		event.addCapability(new ResourceLocation(BeaconBeamInstancy.ID, "beacon_map"), new ICapabilityProvider() {
+		event.addCapability(new ResourceLocation(ResponsiveBeacons.ID, "beacon_map"), new ICapabilityProvider() {
 			private final BeaconLookup map = BeaconLookups.capability.getDefaultInstance();
 
 			@Override

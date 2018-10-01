@@ -1,11 +1,11 @@
-package me.paulf.bbi.server;
+package me.paulf.rbeacons.server;
 
-import me.paulf.bbi.BeaconBeamInstancy;
-import me.paulf.bbi.server.block.InstantBeaconBlock;
-import me.paulf.bbi.server.block.InstantStainedGlassBlock;
-import me.paulf.bbi.server.block.InstantStainedGlassPane;
-import me.paulf.bbi.server.block.entity.InstantBeaconEntity;
-import me.paulf.bbi.server.server.capabilities.BeaconLookups;
+import me.paulf.rbeacons.ResponsiveBeacons;
+import me.paulf.rbeacons.server.block.InstantBeaconBlock;
+import me.paulf.rbeacons.server.block.InstantStainedGlassBlock;
+import me.paulf.rbeacons.server.block.InstantStainedGlassPane;
+import me.paulf.rbeacons.server.block.entity.InstantBeaconEntity;
+import me.paulf.rbeacons.server.server.capabilities.BeaconLookups;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber(modid = BeaconBeamInstancy.ID)
+@Mod.EventBusSubscriber(modid = ResponsiveBeacons.ID)
 public final class ServerEventHandler {
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {

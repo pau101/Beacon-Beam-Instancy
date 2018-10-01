@@ -1,6 +1,6 @@
-package me.paulf.bbi;
+package me.paulf.rbeacons;
 
-import me.paulf.bbi.server.level.chunk.BeaconLookup;
+import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -11,13 +11,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import javax.annotation.Nullable;
 
 @Mod(
-	modid = BeaconBeamInstancy.ID,
+	modid = ResponsiveBeacons.ID,
 	name = "Beacon Beam Instancy",
 	version = "1.0.0",
 	dependencies = "required-after:forge@[14.23.4.2705,)"
 )
-public final class BeaconBeamInstancy {
-	public static final String ID = "bbi";
+public final class ResponsiveBeacons {
+	public static final String ID = "rbeacons";
 
 	@Mod.EventHandler
 	public void init(FMLPreInitializationEvent event) {
