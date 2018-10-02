@@ -10,12 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import javax.annotation.Nullable;
 
-@Mod(
-	modid = ResponsiveBeacons.ID,
-	name = "Beacon Beam Instancy",
-	version = "1.0.0",
-	dependencies = "required-after:forge@[14.23.4.2705,)"
-)
+@Mod(modid = ResponsiveBeacons.ID, useMetadata = true)
 public final class ResponsiveBeacons {
 	public static final String ID = "rbeacons";
 

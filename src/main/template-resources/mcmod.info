@@ -1,0 +1,11 @@
+[{
+	"modid": "rbeacons",
+	"name": "Responsive Beacons",
+	"version": "${version}",
+	"description": "Improves the poor responsiveness beacons have to block changes",
+	"url": "https://minecraft.curseforge.com/projects/responsive-beacons",
+	"authorList": [ "pau101" ],
+	"useDependencyInformation": true,
+	"dependencies": [ "forge@[${forgeVersion},)" ],
+	"requiredMods": [ "forge@[${forgeVersion},)" ]
+}]

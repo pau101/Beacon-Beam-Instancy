@@ -1,9 +1,0 @@
-[{
-	"modid": "bbi",
-	"name": "Beacon Beam Instancy",
-	"description": "Corrects the poor responsivenes beacon beams have to stained glass",
-	"version": "${version}",
-	"mcversion": "${mcversion}",
-	"url": "https://minecraft.curseforge.com/projects/beacon-beam-instancy",
-	"authorList": [ "pau101" ]
-}]

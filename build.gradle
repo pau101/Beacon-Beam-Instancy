@@ -12,27 +12,43 @@ buildscript {
 
 apply plugin: "net.minecraftforge.gradle.forge"
 
-project.ext.modVersion = "1.0.0"
-version = "${modVersion}-1.12.2"
+version = "${modVersion}-${minecraftVersion}"
 group = "me.paulf.rbeacons"
 archivesBaseName = "responsivebeacons"
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-	version = "1.12.2-14.23.4.2705"
+	version = "${project.minecraftVersion}-${project.forgeVersion}"
 	runDir = "run"
-	mappings = "stable_39"
+	mappings = project.mcpVersion
 	makeObfSourceJar = false
 }
 
-processResources {
-	inputs.property "version", project.modVersion
-	inputs.property "mcversion", project.minecraft.version
-	from (sourceSets.main.resources.srcDirs) {
-		include "mcmod.info"
-		expand "version": project.modVersion, "mcversion": project.minecraft.version
+sourceSets {
+	main {
+		// workaround for FML DirectoryDiscoverer limitations
+		output.resourcesDir = output.classesDir
 	}
-	from (sourceSets.main.resources.srcDirs) {
-		exclude "mcmod.info"
+}
+
+processResources {
+	def vars = [
+		"version": project.modVersion,
+		"forgeVersion": project.forgeVersion
+	]
+	inputs.properties(vars)
+	from("src/main/template-resources") {
+		expand(vars)
+	}
+}
+
+// workaround for workaround for FML DirectoryDiscoverer limitations breaking jar task from duplicated resources
+jar {
+	doFirst {
+		ext.outputDir = sourceSets.main.output.resourcesDir
+		sourceSets.main.output.resourcesDir = "/dev/null"
+	}
+	doLast {
+		sourceSets.main.output.resourcesDir = ext.outputDir
 	}
 }
