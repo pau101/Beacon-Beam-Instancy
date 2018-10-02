@@ -1,6 +1,6 @@
 package me.paulf.rbeacons.server.block;
 
-import me.paulf.rbeacons.server.block.entity.InstantBeaconEntity;
+import me.paulf.rbeacons.server.block.entity.ResponsiveBeaconEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.state.IBlockState;
@@ -8,8 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public final class InstantBeaconBlock extends BlockBeacon {
-	public InstantBeaconBlock() {
+public final class ResponsiveBeaconBlock extends BlockBeacon {
+	public ResponsiveBeaconBlock() {
 		this.setLightLevel(1.0F);
 	}
 
@@ -20,7 +20,7 @@ public final class InstantBeaconBlock extends BlockBeacon {
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new InstantBeaconEntity();
+		return new ResponsiveBeaconEntity();
 	}
 
 	@Override

@@ -6,8 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public final class InstantStainedGlassPane extends BlockStainedGlassPane {
-	public InstantStainedGlassPane() {
+public final class ResponsiveStainedGlassPane extends BlockStainedGlassPane {
+	public ResponsiveStainedGlassPane() {
 		this.setHardness(0.3F);
 		this.setSoundType(SoundType.GLASS);
 	}

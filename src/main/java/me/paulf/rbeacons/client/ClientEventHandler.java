@@ -1,7 +1,7 @@
 package me.paulf.rbeacons.client;
 
 import me.paulf.rbeacons.ResponsiveBeacons;
-import me.paulf.rbeacons.server.block.entity.InstantBeaconEntity;
+import me.paulf.rbeacons.server.block.entity.ResponsiveBeaconEntity;
 import net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -13,6 +13,6 @@ import net.minecraftforge.fml.relauncher.Side;
 public final class ClientEventHandler {
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event) {
-		ClientRegistry.bindTileEntitySpecialRenderer(InstantBeaconEntity.class, new TileEntityBeaconRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(ResponsiveBeaconEntity.class, new TileEntityBeaconRenderer());
 	}
 }

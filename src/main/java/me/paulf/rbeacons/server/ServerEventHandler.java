@@ -1,10 +1,10 @@
 package me.paulf.rbeacons.server;
 
 import me.paulf.rbeacons.ResponsiveBeacons;
-import me.paulf.rbeacons.server.block.InstantBeaconBlock;
-import me.paulf.rbeacons.server.block.InstantStainedGlassBlock;
-import me.paulf.rbeacons.server.block.InstantStainedGlassPane;
-import me.paulf.rbeacons.server.block.entity.InstantBeaconEntity;
+import me.paulf.rbeacons.server.block.ResponsiveBeaconBlock;
+import me.paulf.rbeacons.server.block.ResponsiveStainedGlassBlock;
+import me.paulf.rbeacons.server.block.ResponsiveStainedGlassPane;
+import me.paulf.rbeacons.server.block.entity.ResponsiveBeaconEntity;
 import me.paulf.rbeacons.server.server.capabilities.BeaconLookups;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -29,17 +29,17 @@ public final class ServerEventHandler {
 	@SubscribeEvent
 	public static void onBlockRegister(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(
-			new InstantBeaconBlock()
+			new ResponsiveBeaconBlock()
 				.setTranslationKey("beacon")
 				.setRegistryName(new ResourceLocation("beacon")),
-			new InstantStainedGlassBlock()
+			new ResponsiveStainedGlassBlock()
 				.setTranslationKey("stainedGlass")
 				.setRegistryName(new ResourceLocation("stained_glass")),
-			new InstantStainedGlassPane()
+			new ResponsiveStainedGlassPane()
 				.setTranslationKey("thinStainedGlass")
 				.setRegistryName(new ResourceLocation("stained_glass_pane"))
 		);
-		GameRegistry.registerTileEntity(InstantBeaconEntity.class, new ResourceLocation("beacon"));
+		GameRegistry.registerTileEntity(ResponsiveBeaconEntity.class, new ResourceLocation("beacon"));
 	}
 
 	@SubscribeEvent
