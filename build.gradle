@@ -24,12 +24,17 @@ minecraft {
 	makeObfSourceJar = false
 }
 
+// workaround for FML DirectoryDiscoverer limitations
 sourceSets {
 	main {
-		// workaround for FML DirectoryDiscoverer limitations
 		output.resourcesDir = output.classesDir
 	}
 }
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+// end workaround
 
 processResources {
 	def vars = [
@@ -39,16 +44,5 @@ processResources {
 	inputs.properties(vars)
 	from("src/main/template-resources") {
 		expand(vars)
-	}
-}
-
-// workaround for workaround for FML DirectoryDiscoverer limitations breaking jar task from duplicated resources
-jar {
-	doFirst {
-		ext.outputDir = sourceSets.main.output.resourcesDir
-		sourceSets.main.output.resourcesDir = "/dev/null"
-	}
-	doLast {
-		sourceSets.main.output.resourcesDir = ext.outputDir
 	}
 }
