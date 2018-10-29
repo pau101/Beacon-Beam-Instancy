@@ -1,6 +1,6 @@
 package me.paulf.rbeacons.server.block.entity;
 
-import me.paulf.rbeacons.server.server.capabilities.BeaconLookups;
+import me.paulf.rbeacons.server.level.chunk.BeaconLookups;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
