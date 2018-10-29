@@ -1,28 +1,19 @@
 package me.paulf.rbeacons;
 
-import com.google.common.escape.CharEscaper;
-import com.google.common.escape.Escaper;
-import com.google.common.escape.Escapers;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
+import me.paulf.rbeacons.server.BeaconNotifier;
+import me.paulf.rbeacons.server.event.RegistryAvailableEvent;
 import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.gen.MapGenBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLModIdMappingEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /*
  * https://bugs.mojang.com/browse/MC-66206
@@ -47,7 +38,7 @@ public final class ResponsiveBeacons {
 			}
 
 			@Override
-			public void readNBT(final Capability<BeaconLookup> capability, final BeaconLookup instance, EnumFacing side, final NBTBase nbt) {}
+			public void readNBT(final Capability<BeaconLookup> capability, final BeaconLookup instance, final EnumFacing side, final NBTBase nbt) {}
 		}, () -> {
 			throw new UnsupportedOperationException();
 		});

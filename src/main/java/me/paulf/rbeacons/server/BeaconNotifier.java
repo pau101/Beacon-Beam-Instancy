@@ -1,7 +1,8 @@
-package me.paulf.rbeacons;
+package me.paulf.rbeacons.server;
 
 import it.unimi.dsi.fastutil.objects.Reference2FloatMap;
 import it.unimi.dsi.fastutil.objects.Reference2FloatMaps;
+import me.paulf.rbeacons.server.event.RegistryAvailableEvent;
 import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
 import me.paulf.rbeacons.server.level.chunk.BeaconLookups;
 import net.minecraft.block.Block;
@@ -47,7 +48,7 @@ public final class BeaconNotifier {
 		@Override
 		public void notifyBlockUpdate(final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newState, final int flags) {
 			if (oldState != newState) {
-				BeaconLookup lookup = BeaconLookups.get(world, pos);
+				final BeaconLookup lookup = BeaconLookups.get(world, pos);
 				lookup.notifyBelow(world, pos);
 				if (BeaconNotifier.this.getMaterial(oldState) != BeaconNotifier.this.getMaterial(newState)) {
 					lookup.notifyAround(world, pos);

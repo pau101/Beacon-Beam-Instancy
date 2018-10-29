@@ -13,8 +13,8 @@ public final class ResponsiveStainedGlassPane extends BlockStainedGlassPane {
 	}
 
 	@Override
-	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {}
+	public void onBlockAdded(final World world, final BlockPos pos, final IBlockState state) {}
 
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {}
+	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {}
 }

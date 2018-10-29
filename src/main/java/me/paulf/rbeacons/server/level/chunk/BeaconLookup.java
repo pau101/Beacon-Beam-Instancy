@@ -153,8 +153,8 @@ public final class BeaconLookup {
 	}
 
 	public void remove(final BlockPos pos) {
-		boolean cRemove = this.columnRemove(pos);
-		boolean sRemove = this.sectorRemove(pos);
+		final boolean cRemove = this.columnRemove(pos);
+		final boolean sRemove = this.sectorRemove(pos);
 		if (cRemove != sRemove) {
 			throw new IllegalStateException();
 		}

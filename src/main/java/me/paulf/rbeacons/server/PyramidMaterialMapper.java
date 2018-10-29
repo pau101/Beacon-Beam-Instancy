@@ -1,4 +1,4 @@
-package me.paulf.rbeacons;
+package me.paulf.rbeacons.server;
 
 import it.unimi.dsi.fastutil.objects.Reference2FloatFunction;
 import it.unimi.dsi.fastutil.objects.Reference2FloatMap;
@@ -20,14 +20,14 @@ import javax.annotation.Nullable;
 import java.util.stream.Collector;
 import java.util.stream.StreamSupport;
 
-public final class PyramidMaterialMapper {
+final class PyramidMaterialMapper {
 	private final TestingWorld testbed;
 
 	private PyramidMaterialMapper(final TestingWorld testbed) {
 		this.testbed = testbed;
 	}
 
-	public Reference2FloatMap<IBlockState> get(final Iterable<? extends Block> blocks) {
+	Reference2FloatMap<IBlockState> get(final Iterable<? extends Block> blocks) {
 		return StreamSupport.stream(blocks.spliterator(), false)
 			.collect(Collector.of(
 				Reference2FloatOpenHashMap::new,
@@ -48,7 +48,7 @@ public final class PyramidMaterialMapper {
 			@Nullable Boolean result;
 			try {
 				result = block.isBeaconBase(this.testbed, this.testbed.material(), this.testbed.beacon());
-			} catch (RuntimeException e) {
+			} catch (final RuntimeException e) {
 				result = null;
 			}
 			if (result != null && this.testbed.isStateIsolated()) {
@@ -142,7 +142,7 @@ public final class PyramidMaterialMapper {
 		}
 	}
 
-	public static PyramidMaterialMapper create() {
+	static PyramidMaterialMapper create() {
 		return new PyramidMaterialMapper(
 			new TestingWorld(
 				new BlockPos(41, 64, 73),

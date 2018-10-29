@@ -1,4 +1,4 @@
-package me.paulf.rbeacons;
+package me.paulf.rbeacons.server.event;
 
 import net.minecraftforge.fml.common.eventhandler.GenericEvent;
 import net.minecraftforge.registries.IForgeRegistry;

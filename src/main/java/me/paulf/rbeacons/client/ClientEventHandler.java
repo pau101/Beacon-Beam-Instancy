@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = ResponsiveBeacons.ID)
 public final class ClientEventHandler {
 	@SubscribeEvent
-	public static void onModelRegister(ModelRegistryEvent event) {
+	public static void onModelRegister(final ModelRegistryEvent event) {
 		ClientRegistry.bindTileEntitySpecialRenderer(ResponsiveBeaconEntity.class, new TileEntityBeaconRenderer());
 	}
 }

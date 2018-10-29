@@ -14,15 +14,15 @@ public final class ResponsiveBeaconBlock extends BlockBeacon {
 	}
 
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(final IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(final World world, final IBlockState state) {
 		return new ResponsiveBeaconEntity();
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos source) {}
+	public void neighborChanged(final IBlockState state, final World world, final BlockPos pos, final Block block, final BlockPos source) {}
 }
