@@ -48,10 +48,9 @@ public final class BeaconNotifier {
 		@Override
 		public void notifyBlockUpdate(final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newState, final int flags) {
 			if (oldState != newState) {
-				final BeaconLookup lookup = BeaconLookups.get(world, pos);
-				lookup.notifyBelow(world, pos);
+				BeaconLookups.notifyBelow(world, pos);
 				if (BeaconNotifier.this.getMaterial(oldState) != BeaconNotifier.this.getMaterial(newState)) {
-					lookup.notifyAround(world, pos);
+					BeaconLookups.notifyAround(world, pos);
 				}
 			}
 		}

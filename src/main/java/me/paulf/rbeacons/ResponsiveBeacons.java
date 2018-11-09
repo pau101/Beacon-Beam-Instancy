@@ -15,15 +15,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
-/*
- * https://bugs.mojang.com/browse/MC-66206
- * https://bugs.mojang.com/browse/MC-67092
- * https://bugs.mojang.com/browse/MC-121105
- *
- * https://github.com/Ephys/ConfigurableBeacons
- *
- * https://github.com/MinecraftForge/MinecraftForge/commit/31638a069726a697b89c29e91c9e0180eecce135
- */
 @Mod(modid = ResponsiveBeacons.ID, useMetadata = true)
 public final class ResponsiveBeacons {
 	public static final String ID = "rbeacons";

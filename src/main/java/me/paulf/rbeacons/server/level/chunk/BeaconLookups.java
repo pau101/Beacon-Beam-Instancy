@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -22,6 +23,27 @@ public final class BeaconLookups {
 
 	@CapabilityInject(BeaconLookup.class)
 	private static Capability<BeaconLookup> capability = null;
+
+	public static void notifyBelow(final World world, final BlockPos pos) {
+		BeaconLookups.get(world, pos).notifyBelow(world, pos);
+	}
+
+	public static void notifyAround(final World world, final BlockPos pos) {
+		final int range = 4;
+		final int minX = (pos.getX() - range) >> 4;
+		final int minZ = (pos.getZ() - range) >> 4;
+		final int maxX = (pos.getX() + range) >> 4;
+		final int maxZ = (pos.getZ() + range) >> 4;
+		final IChunkProvider provider = world.getChunkProvider();
+		for (int chunkZ = minZ; chunkZ <= maxZ; chunkZ++) {
+			for (int chunkX = minX; chunkX <= maxX; chunkX++) {
+				@Nullable final Chunk c = provider.getLoadedChunk(chunkX, chunkZ);
+				if (c != null) {
+					BeaconLookups.get(c).notifyAround(world, pos, range);
+				}
+			}
+		}
+	}
 
 	public static BeaconLookup get(final World world, final BlockPos pos) {
 		return BeaconLookups.get(world.getChunk(pos));

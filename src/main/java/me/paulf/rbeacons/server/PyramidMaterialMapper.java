@@ -20,6 +20,10 @@ import javax.annotation.Nullable;
 import java.util.stream.Collector;
 import java.util.stream.StreamSupport;
 
+/*
+ * Block#isBeaconBase introduced here:
+ * https://github.com/MinecraftForge/MinecraftForge/commit/31638a069726a697b89c29e91c9e0180eecce135
+ */
 final class PyramidMaterialMapper {
 	private final TestingWorld testbed;
 

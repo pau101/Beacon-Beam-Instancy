@@ -40,77 +40,77 @@ public final class BeaconLookup {
 		this.count = count;
 	}
 
-	public void notifyBelow(final World world, final BlockPos source) {
+	void notifyBelow(final World world, final BlockPos source) {
 		if (this.columns != null) {
 			final int columnIndex = this.toColumnIndex(source);
 			@Nullable final IntList column = this.columns[columnIndex];
 			if (column != null) {
-				final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(source);
-				for (final IntIterator it = column.iterator(); it.hasNext(); ) {
-					final int y = it.nextInt();
-					if (y < source.getY()) {
-						pos.setY(y);
-						if (this.update(world, pos)) {
-							it.remove();
-							this.cullColumn(columnIndex, column);
-							if (!this.sectorRemove(pos)) {
-								throw new IllegalStateException();
-							}
-							this.count--;
-						}
-					}
-				}
+				this.notifyBelowColumn(world, source, columnIndex, column);
 			}
 			this.cull();
 		}
 	}
 
-	public void notifyAround(final World world, final BlockPos source) {
-		final int r = 4;
-		final int minX = (source.getX() - r) >> 4;
-		final int minZ = (source.getZ() - r) >> 4;
-		final int maxX = (source.getX() + r) >> 4;
-		final int maxZ = (source.getZ() + r) >> 4;
-		final int minY = source.getY() + 1;
-		final int maxY = source.getY() + r;
-		final IChunkProvider provider = world.getChunkProvider();
-		for (int chunkZ = minZ; chunkZ <= maxZ; chunkZ++) {
-			for (int chunkX = minX; chunkX <= maxX; chunkX++) {
-				@Nullable final Chunk c = provider.getLoadedChunk(chunkX, chunkZ);
-				if (c != null) {
-					BeaconLookups.get(c).notifyAround(world, source, minY, maxY);
+	private void notifyBelowColumn(final World world, final BlockPos source, final int columnIndex, final IntList column) {
+		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(source);
+		for (final IntIterator it = column.iterator(); it.hasNext(); ) {
+			final int y = it.nextInt();
+			if (y < source.getY()) {
+				pos.setY(y);
+				if (this.update(world, pos)) {
+					it.remove();
+					this.cullColumn(columnIndex, column);
+					if (!this.sectorRemove(pos)) {
+						this.throwDiscrepancy(world, source, pos);
+					}
+					this.count--;
 				}
 			}
 		}
 	}
 
-	private void notifyAround(final World world, final BlockPos source, final int minY, final int maxY) {
+	void notifyAround(final World world, final BlockPos source, final int range) {
 		if (this.sectors != null) {
+			final int minY = source.getY() + 1;
+			final int maxY = source.getY() + range;
 			for (int sectorIndex = this.toSectorIndex(minY); sectorIndex <= this.toSectorIndex(maxY); sectorIndex++) {
 				@Nullable final IntList sector = this.sectors.get(sectorIndex);
 				if (sector != null) {
-					final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-					for (final IntIterator it = sector.iterator(); it.hasNext(); ) {
-						this.fromSectorValue(sectorIndex, pos, it.nextInt());
-						final int py = pos.getY();
-						if (py >= minY && py <= maxY) {
-							final int dy = py - source.getY();
-							if (Math.abs(pos.getX() - source.getX()) <= dy && Math.abs(pos.getZ() - source.getZ()) <= dy) {
-								if (this.update(world, pos)) {
-									it.remove();
-									this.cullSector(sectorIndex, sector);
-									if (!this.columnRemove(pos)) {
-										throw new IllegalStateException();
-									}
-									this.count--;
-								}
-							}
-						}
-					}
+					this.notifyAroundSector(world, source, minY, maxY, sectorIndex, sector);
 				}
 			}
 			this.cull();
 		}
+	}
+
+	private void notifyAroundSector(final World world, final BlockPos source, final int minY, final int maxY, final int sectorIndex, final IntList sector) {
+		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+		for (final IntIterator it = sector.iterator(); it.hasNext(); ) {
+			this.fromSectorValue(sectorIndex, pos, it.nextInt());
+			final int py = pos.getY();
+			if (py >= minY && py <= maxY) {
+				final int dy = py - source.getY();
+				if (Math.abs(pos.getX() - source.getX()) <= dy && Math.abs(pos.getZ() - source.getZ()) <= dy) {
+					if (this.update(world, pos)) {
+						it.remove();
+						this.cullSector(sectorIndex, sector);
+						if (!this.columnRemove(pos)) {
+							this.throwDiscrepancy(world, source, pos);
+						}
+						this.count--;
+					}
+				}
+			}
+		}
+	}
+
+	private void throwDiscrepancy(final World world, final BlockPos source, final BlockPos pos) {
+		throw new IllegalStateException(String.format(
+			"Record discrepancy during notify for %s at %s in %s",
+			source,
+			pos,
+			world.getClass().getName()
+		));
 	}
 
 	private boolean update(final IBlockAccess world, final BlockPos pos) {
