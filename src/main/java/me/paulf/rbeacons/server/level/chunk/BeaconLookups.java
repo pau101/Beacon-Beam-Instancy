@@ -16,13 +16,20 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = ResponsiveBeacons.ID)
 public final class BeaconLookups {
 	private BeaconLookups() {}
 
+	private static Supplier<Capability<BeaconLookup>> accessor = () -> {
+		throw new IllegalStateException();
+	};
+
 	@CapabilityInject(BeaconLookup.class)
-	private static Capability<BeaconLookup> capability = null;
+	static void inject(final Capability<BeaconLookup> capability) {
+		BeaconLookups.accessor = () -> capability;
+	}
 
 	public static void notifyBelow(final World world, final BlockPos pos) {
 		BeaconLookups.get(world, pos).notifyBelow(world, pos);
@@ -50,7 +57,7 @@ public final class BeaconLookups {
 	}
 
 	public static BeaconLookup get(final Chunk chunk) {
-		final BeaconLookup lookup = chunk.getCapability(BeaconLookups.capability, null);
+		final BeaconLookup lookup = chunk.getCapability(BeaconLookups.accessor.get(), null);
 		if (lookup == null) {
 			throw new IllegalStateException(String.format(
 				"Missing capability for chunk at %s of %s in %s from %s",
@@ -68,15 +75,17 @@ public final class BeaconLookups {
 		final Chunk chunk = event.getObject();
 		final BeaconLookup lookup = new BeaconLookup(chunk.x, chunk.z);
 		event.addCapability(new ResourceLocation(ResponsiveBeacons.ID, "lookup"), new ICapabilityProvider() {
+			private final Capability<BeaconLookup> capability = BeaconLookups.accessor.get();
+
 			@Override
 			public boolean hasCapability(final @Nonnull Capability<?> capability, final @Nullable EnumFacing facing) {
-				return capability == BeaconLookups.capability;
+				return capability == this.capability;
 			}
 
 			@Nullable
 			@Override
 			public <T> T getCapability(final @Nonnull Capability<T> capability, final @Nullable EnumFacing facing) {
-				return capability == BeaconLookups.capability ? BeaconLookups.capability.cast(lookup) : null;
+				return capability == this.capability ? this.capability.cast(lookup) : null;
 			}
 		});
 	}
