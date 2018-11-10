@@ -9,9 +9,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +37,7 @@ public final class BeaconLookup {
 		this.count = count;
 	}
 
-	void notifyBelow(final World world, final BlockPos source) {
+	void notifyBelow(final IBlockAccess world, final BlockPos source) {
 		if (this.columns != null) {
 			final int columnIndex = this.toColumnIndex(source);
 			@Nullable final IntList column = this.columns[columnIndex];
@@ -51,7 +48,7 @@ public final class BeaconLookup {
 		}
 	}
 
-	private void notifyBelowColumn(final World world, final BlockPos source, final int columnIndex, final IntList column) {
+	private void notifyBelowColumn(final IBlockAccess world, final BlockPos source, final int columnIndex, final IntList column) {
 		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(source);
 		for (final IntIterator it = column.iterator(); it.hasNext(); ) {
 			final int y = it.nextInt();
@@ -61,7 +58,7 @@ public final class BeaconLookup {
 					it.remove();
 					this.cullColumn(columnIndex, column);
 					if (!this.sectorRemove(pos)) {
-						this.throwDiscrepancy(world, source, pos);
+						this.throwDiscrepancy(pos);
 					}
 					this.count--;
 				}
@@ -69,7 +66,7 @@ public final class BeaconLookup {
 		}
 	}
 
-	void notifyAround(final World world, final BlockPos source, final int range) {
+	void notifyAround(final IBlockAccess world, final BlockPos source, final int range) {
 		if (this.sectors != null) {
 			final int minY = source.getY() + 1;
 			final int maxY = source.getY() + range;
@@ -83,7 +80,7 @@ public final class BeaconLookup {
 		}
 	}
 
-	private void notifyAroundSector(final World world, final BlockPos source, final int minY, final int maxY, final int sectorIndex, final IntList sector) {
+	private void notifyAroundSector(final IBlockAccess world, final BlockPos source, final int minY, final int maxY, final int sectorIndex, final IntList sector) {
 		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		for (final IntIterator it = sector.iterator(); it.hasNext(); ) {
 			this.fromSectorValue(sectorIndex, pos, it.nextInt());
@@ -95,22 +92,13 @@ public final class BeaconLookup {
 						it.remove();
 						this.cullSector(sectorIndex, sector);
 						if (!this.columnRemove(pos)) {
-							this.throwDiscrepancy(world, source, pos);
+							this.throwDiscrepancy(pos);
 						}
 						this.count--;
 					}
 				}
 			}
 		}
-	}
-
-	private void throwDiscrepancy(final World world, final BlockPos source, final BlockPos pos) {
-		throw new IllegalStateException(String.format(
-			"Record discrepancy during notify for %s at %s in %s",
-			source,
-			pos,
-			world.getClass().getName()
-		));
 	}
 
 	private boolean update(final IBlockAccess world, final BlockPos pos) {
@@ -153,15 +141,19 @@ public final class BeaconLookup {
 	}
 
 	public void remove(final BlockPos pos) {
-		final boolean cRemove = this.columnRemove(pos);
-		final boolean sRemove = this.sectorRemove(pos);
-		if (cRemove != sRemove) {
-			throw new IllegalStateException();
+		final boolean columnRemoval = this.columnRemove(pos);
+		final boolean sectorRemoval = this.sectorRemove(pos);
+		if (columnRemoval != sectorRemoval) {
+			this.throwDiscrepancy(pos);
 		}
-		if (sRemove) {
+		if (sectorRemoval) {
 			this.count--;
 			this.cull();
 		}
+	}
+
+	private void throwDiscrepancy(final BlockPos pos) {
+		throw new IllegalStateException(String.format("Record discrepancy found at %s", pos));
 	}
 
 	private void cull() {
