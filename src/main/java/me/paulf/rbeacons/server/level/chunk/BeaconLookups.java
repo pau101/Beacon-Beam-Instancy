@@ -23,7 +23,7 @@ public final class BeaconLookups {
 	private BeaconLookups() {}
 
 	private static Supplier<Capability<BeaconLookup>> accessor = () -> {
-		throw new IllegalStateException();
+		throw new IllegalStateException("Beacon lookup not injected");
 	};
 
 	@CapabilityInject(BeaconLookup.class)

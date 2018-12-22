@@ -27,7 +27,6 @@ public final class ServerEventHandler {
 				.setTranslationKey("thinStainedGlass")
 				.setRegistryName(new ResourceLocation("stained_glass_pane"))
 		);
-
 		GameRegistry.registerTileEntity(ResponsiveBeaconEntity.class, new ResourceLocation("beacon"));
 	}
 }
