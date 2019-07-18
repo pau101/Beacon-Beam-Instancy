@@ -8,7 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public final class ResponsiveBeaconBlock extends BlockBeacon {
+public class ResponsiveBeaconBlock extends BlockBeacon {
+
 	public ResponsiveBeaconBlock() {
 		this.setLightLevel(1.0F);
 	}
