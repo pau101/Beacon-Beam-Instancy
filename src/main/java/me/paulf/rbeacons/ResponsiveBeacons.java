@@ -1,5 +1,7 @@
 package me.paulf.rbeacons;
 
+import javax.annotation.Nullable;
+
 import me.paulf.rbeacons.server.BeaconNotifier;
 import me.paulf.rbeacons.server.event.RegistryAvailableEvent;
 import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
@@ -12,8 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLModIdMappingEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
-import javax.annotation.Nullable;
 
 @Mod(modid = ResponsiveBeacons.ID, useMetadata = true)
 public final class ResponsiveBeacons {

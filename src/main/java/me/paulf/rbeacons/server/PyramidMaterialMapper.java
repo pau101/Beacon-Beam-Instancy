@@ -1,5 +1,10 @@
 package me.paulf.rbeacons.server;
 
+import java.util.stream.Collector;
+import java.util.stream.StreamSupport;
+
+import javax.annotation.Nullable;
+
 import it.unimi.dsi.fastutil.objects.Reference2FloatFunction;
 import it.unimi.dsi.fastutil.objects.Reference2FloatMap;
 import it.unimi.dsi.fastutil.objects.Reference2FloatMaps;
@@ -15,10 +20,6 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.stream.Collector;
-import java.util.stream.StreamSupport;
 
 /*
  * Block#isBeaconBase introduced here:

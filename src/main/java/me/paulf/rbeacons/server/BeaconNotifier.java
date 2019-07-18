@@ -1,9 +1,10 @@
 package me.paulf.rbeacons.server;
 
+import javax.annotation.Nullable;
+
 import it.unimi.dsi.fastutil.objects.Reference2FloatMap;
 import it.unimi.dsi.fastutil.objects.Reference2FloatMaps;
 import me.paulf.rbeacons.server.event.RegistryAvailableEvent;
-import me.paulf.rbeacons.server.level.chunk.BeaconLookup;
 import me.paulf.rbeacons.server.level.chunk.BeaconLookups;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -16,8 +17,6 @@ import net.minecraft.world.IWorldEventListener;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import javax.annotation.Nullable;
 
 public final class BeaconNotifier {
 	private Reference2FloatMap<IBlockState> materials;
