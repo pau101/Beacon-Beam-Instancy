@@ -3,6 +3,7 @@ package me.paulf.rbeacons.server.block;
 import me.paulf.rbeacons.server.block.entity.ResponsiveBeaconEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBeacon;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +12,10 @@ import net.minecraft.world.World;
 public class ResponsiveBeaconBlock extends BlockBeacon {
 
 	public ResponsiveBeaconBlock() {
-		this.setLightLevel(1.0F);
+		super();
+		this.setLightLevel(1);
+		this.setSoundType(SoundType.GLASS);
+		this.setTranslationKey("beacon");
 	}
 
 	@Override

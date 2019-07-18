@@ -18,13 +18,10 @@ public final class ServerEventHandler {
 	public static void onRegisterBlock(final RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(
 			new ResponsiveBeaconBlock()
-				.setTranslationKey("beacon")
 				.setRegistryName(new ResourceLocation("beacon")),
 			new ResponsiveStainedGlassBlock()
-				.setTranslationKey("stainedGlass")
 				.setRegistryName(new ResourceLocation("stained_glass")),
 			new ResponsiveStainedGlassPane()
-				.setTranslationKey("thinStainedGlass")
 				.setRegistryName(new ResourceLocation("stained_glass_pane"))
 		);
 		GameRegistry.registerTileEntity(ResponsiveBeaconEntity.class, new ResourceLocation("beacon"));

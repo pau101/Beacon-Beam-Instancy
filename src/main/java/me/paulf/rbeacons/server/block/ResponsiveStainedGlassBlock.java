@@ -13,6 +13,7 @@ public class ResponsiveStainedGlassBlock extends BlockStainedGlass {
 		super(Material.GLASS);
 		this.setHardness(0.3F);
 		this.setSoundType(SoundType.GLASS);
+		this.setTranslationKey("stainedGlass");
 	}
 
 	@Override
